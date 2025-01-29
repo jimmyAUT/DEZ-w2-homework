@@ -1,19 +1,19 @@
 volumes:
-  w2-postgres-data:
-    name: w2-postgres-data
-  w2-kestra-metadata:
-    name: w2-kestra-metadata
-  w2-kestra-data:
-    name: w2-kestra-data
-  w2-pgadmin-data:
-    name: w2-pgadmin-data
+  w2h-postgres-data:
+    name: w2h-postgres-data
+  w2h-kestra-metadata:
+    name: w2h-kestra-metadata
+  w2h-kestra-data:
+    name: w2h-kestra-data
+  w2h-pgadmin-data:
+    name: w2h-pgadmin-data
 
 services:
   kestra-metadata:
     image: postgres:17-alpine
     container_name: kestra-metadata
     volumes:
-      -  w2-kestra-metadata:/var/lib/postgresql/data
+      -  w2h-kestra-metadata:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: kestra_metadata
       POSTGRES_USER: kestra
@@ -29,7 +29,7 @@ services:
     image: postgres:17-alpine
     container_name: postgres
     volumes:
-      - w2-postgres-data:/var/lib/postgresql/data
+      - w2h-postgres-data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: ny_taxi
       POSTGRES_USER: root
@@ -52,7 +52,7 @@ services:
     user: "root"
     command: server standalone
     volumes:
-      - w2-kestra-data:/app/storage
+      - w2h-kestra-data:/app/storage
       - /var/run/docker.sock:/var/run/docker.sock
       - /tmp/kestra-wd:/tmp/kestra-wd
     environment:
@@ -95,7 +95,7 @@ services:
       - PGADMIN_DEFAULT_EMAIL=admin@admin.com
       - PGADMIN_DEFAULT_PASSWORD=root
     volumes:
-      - "w2-pgadmin-data:/var/lib/pgadmin/data" 
+      - "w2h-pgadmin-data:/var/lib/pgadmin/data" 
     ports:
       - "9000:80"
     depends_on:
