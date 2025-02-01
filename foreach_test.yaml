@@ -1,0 +1,26 @@
+id: nested-foreach
+namespace: jimmyh
+tasks:
+  - id: outer-loop
+    type: io.kestra.plugin.core.flow.ForEach
+    values: ["yellow", "green", "bule"]
+    tasks:
+      - id: inner-loop
+        type: io.kestra.plugin.core.flow.ForEach
+        values: ["2020-01", "2020-02", "2020-03"] 
+        tasks:
+          - id: if_yellow_taxi
+            type: io.kestra.plugin.core.flow.If
+            condition: "{{parents[0].taskrun.value == 'yellow'}}"
+            then:
+              - id: print_yellow_combination
+                type: io.kestra.plugin.core.log.Log
+                message: "{{parents[1].taskrun.value}} - {{ parents[0].taskrun.value }}"
+
+          - id: if_green_taxi
+            type: io.kestra.plugin.core.flow.If
+            condition: "{{parents[0].taskrun.value == 'green'}}"
+            then:
+              - id: print_green_combination
+                type: io.kestra.plugin.core.log.Log
+                message: "{{parents[1].taskrun.value}} - {{ parents[0].taskrun.value }}"
