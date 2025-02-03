@@ -87,11 +87,11 @@ WHERE filename LIKE "%2020-%"
 ```
 
 Q5: How many rows are there for the Yellow Taxi data for the March 2021 CSV file?
-**Ans: 3007292**
+**Ans: 1925152**
 
 ```sql
 SELECT COUNT(unique_row_id) FROM `dez-jimmyh.w2_kestra_dataset.yellow_tripdata` 
-WHERE filename = "yellow_tripdata_2020-03" 
+WHERE filename = "yellow_tripdata_2021-03" 
 ```
 
 Q6: How would you configure the timezone to New York in a Schedule trigger?
